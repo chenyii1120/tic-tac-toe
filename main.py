@@ -13,15 +13,16 @@ def clear():
         _ = os.system("cls")
 
 
-a = [' ', ' ', ' ']
-b = [' ', ' ', ' ']
-c = [' ', ' ', ' ']
+a = [' ', ' ', 'O']
+b = [' ', 'O', 'O']
+c = ['O', 'O', 'O']
 
 # for print layout
 grid = [a, b, c]
 # for check and print the rows coordinate axis with the fStr
 row_topic = ["A", 'B', "C"]
 
+not_end = True
 
 def print_playground():
     '''Print the checkerboard'''
@@ -38,29 +39,34 @@ def turn(sign):
     '''Prompt user to choose a position'''
 
     # prompt user to choose position
-    pos = input(f'Now\'s "{sign}"\'s turn, please select a position. (e.g A3)')
+    pos = input(f'Now\'s "{sign}"\'s turn, please select a position. (e.g A3): ')
     row = pos[0].upper()
     col = int(pos[1]) - 1
 
     # check if the user input is out of bound
     if row not in row_topic or col < 0 or col > 2:
         retry(sign, "wrong_pos")
+        return
     else:
         if row == 'A':
             if a[col] == " ":
                 a[col] = sign
             else:
                 retry(sign, "pos_taken")
+                return
         elif row == 'B':
             if b[col] == " ":
                 b[col] = sign
             else:
                 retry(sign, "pos_taken")
+                return
         elif row == 'C':
             if c[col] == " ":
                 c[col] = sign
             else:
                 retry(sign, "pos_taken")
+                return
+    check_end()
 
 
 def retry(sign, status):
@@ -75,14 +81,21 @@ def retry(sign, status):
     turn(sign)
 
 
-def not_end():
-    pass
+def check_end():
+    if " " not in a and " " not in b and " " not in c:
+        clear()
+        print_playground()
+        global  not_end
+        print("\nIt's a draw!")
+        not_end = False
 
 
-while True:
+while not_end:
     clear()
     print_playground()
     turn("O")
+    if not not_end:
+        break
     clear()
     print_playground()
     turn("X")

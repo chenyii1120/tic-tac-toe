@@ -88,18 +88,18 @@ def check_end(status=False, sign=""):
 
     global not_end
 
-    # if it's a draw
-    if " " not in a and " " not in b and " " not in c:
-        clear()
-        print_playground()
-        print("\nIt's a draw!")
-        not_end = False
-
     # if somebody win this game
-    elif status:
+    if status:
         clear()
         print_playground()
         print(f"\nGame Over! The winner is {sign}")
+        not_end = False
+
+    # if it's a draw
+    elif " " not in a and " " not in b and " " not in c:
+        clear()
+        print_playground()
+        print("\nIt's a draw!")
         not_end = False
 
 

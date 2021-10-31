@@ -1,17 +1,5 @@
 import os
 
-
-def clear():
-    """Clean the console screen."""
-    # for linux and mac
-    if os.name == "posix":
-        _ = os.system("clear")
-
-    # for windows
-    else:
-        _ = os.system("cls")
-
-
 a = [' ', ' ', ' ']
 b = [' ', ' ', ' ']
 c = [' ', ' ', ' ']
@@ -23,6 +11,17 @@ row_topic = ["A", 'B', "C"]
 
 win_pattern = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
 not_end = True
+
+
+def clear():
+    """Clean the console screen."""
+    # for linux and mac
+    if os.name == "posix":
+        _ = os.system("clear")
+
+    # for windows
+    else:
+        _ = os.system("cls")
 
 
 def print_playground():
@@ -68,7 +67,7 @@ def turn(sign):
                 retry(sign, "pos_taken")
                 return
     # check if the game is over after every moves.
-    if not check_win(sign):     # if no winner then check if it's a draw
+    if not check_win(sign):  # if no winner then check if it's a draw
         check_end()
 
 
@@ -102,6 +101,7 @@ def check_end(status=False, sign=""):
         print_playground()
         print(f"\nGame Over! The winner is {sign}")
         not_end = False
+
 
 def check_win(sign):
     """Check if the player has won, return True when the sign has won"""

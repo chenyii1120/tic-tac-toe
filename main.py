@@ -1,9 +1,9 @@
 import os
 
 
-# clean console screen
-def clear():
 
+def clear():
+    """Clean the console screen."""
     # for linux and mac
     if os.name == "posix":
         _ = os.system("clear")
@@ -25,7 +25,7 @@ row_topic = ["A", 'B', "C"]
 not_end = True
 
 def print_playground():
-    '''Print the checkerboard'''
+    """Print the checkerboard"""
 
     # print columns coordinate axis
     print("   1   2   3")
@@ -36,7 +36,7 @@ def print_playground():
 
 
 def turn(sign):
-    '''Prompt user to choose a position'''
+    """Prompt user to choose a position"""
 
     # prompt user to choose position
     pos = input(f'Now\'s "{sign}"\'s turn, please select a position. (e.g A3): ')
@@ -70,7 +70,7 @@ def turn(sign):
 
 
 def retry(sign, status):
-    '''Prompt user to input the valid value when they type wrong.'''
+    """Prompt user to input the valid value when they type wrong."""
 
     clear()
     if status == "wrong_pos":
@@ -82,6 +82,9 @@ def retry(sign, status):
 
 
 def check_end():
+    """Check if the game is over."""
+
+    # if it's a draw
     if " " not in a and " " not in b and " " not in c:
         clear()
         print_playground()
@@ -99,3 +102,4 @@ while not_end:
     clear()
     print_playground()
     turn("X")
+

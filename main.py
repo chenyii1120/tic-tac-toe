@@ -1,7 +1,6 @@
 import os
 
 
-
 def clear():
     """Clean the console screen."""
     # for linux and mac
@@ -13,16 +12,18 @@ def clear():
         _ = os.system("cls")
 
 
-a = [' ', ' ', 'O']
-b = [' ', 'O', 'O']
-c = ['O', 'O', 'O']
+a = [' ', ' ', ' ']
+b = [' ', ' ', ' ']
+c = [' ', ' ', ' ']
 
 # for print layout
 grid = [a, b, c]
 # for check and print the rows coordinate axis with the fStr
 row_topic = ["A", 'B', "C"]
 
+win_pattern = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
 not_end = True
+
 
 def print_playground():
     """Print the checkerboard"""
@@ -66,7 +67,9 @@ def turn(sign):
             else:
                 retry(sign, "pos_taken")
                 return
-    check_end()
+    # check if the game is over after every moves.
+    if not check_win(sign):     # if no winner then check if it's a draw
+        check_end()
 
 
 def retry(sign, status):
@@ -81,16 +84,38 @@ def retry(sign, status):
     turn(sign)
 
 
-def check_end():
+def check_end(status=False, sign=""):
     """Check if the game is over."""
+
+    global not_end
 
     # if it's a draw
     if " " not in a and " " not in b and " " not in c:
         clear()
         print_playground()
-        global  not_end
         print("\nIt's a draw!")
         not_end = False
+
+    # if somebody win this game
+    elif status:
+        clear()
+        print_playground()
+        print(f"\nGame Over! The winner is {sign}")
+        not_end = False
+
+def check_win(sign):
+    """Check if the player has won, return True when the sign has won"""
+
+    # combine all the rows into a list
+    all_piece = a + b + c
+    target = [j + 1 for j in range(9) if all_piece[j] == sign]  # get the particular sign's position
+    # check if the position matches win patterns
+    for pattern in win_pattern:
+        check = all(item in target for item in pattern)
+        if check:
+            check_end(True, sign)
+            return True
+    return False
 
 
 while not_end:
@@ -102,4 +127,3 @@ while not_end:
     clear()
     print_playground()
     turn("X")
-

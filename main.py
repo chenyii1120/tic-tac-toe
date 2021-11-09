@@ -1,3 +1,10 @@
+"""
+A simple tic-tac-toe game in console
+
+Author: Joseph Chen
+"""
+
+
 import os
 
 a = [' ', ' ', ' ']
